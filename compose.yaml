@@ -1,0 +1,20 @@
+services:
+  zookeeper:
+    # Pin the ZooKeeper release so local experiments are repeatable.
+    image: zookeeper:3.9.6
+    hostname: zookeeper
+    ports:
+      # ZooKeeper's client protocol. Curator and zkCli connect here.
+      - "2181:2181"
+    environment:
+      # Keep the initial setup in standalone mode. We'll add peers later.
+      ZOO_STANDALONE_ENABLED: "true"
+      ZOO_TICK_TIME: 2000
+    volumes:
+      # Preserve the transaction log and snapshots across container restarts.
+      - zookeeper-data:/data
+      - zookeeper-datalog:/datalog
+
+volumes:
+  zookeeper-data:
+  zookeeper-datalog:
