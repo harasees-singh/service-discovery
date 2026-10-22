@@ -11,9 +11,8 @@ service-discovery:
     connect-string: ${ZOOKEEPER_CONNECT_STRING:localhost:2181,localhost:2182,localhost:2183}
     session-timeout: 15s
     connection-timeout: 5s
-  registration:
+  registry:
     base-path: /service-discovery/services
-    service-name: ${SERVICE_NAME:${spring.application.name}}
-    instance-id: ${INSTANCE_ID:${random.uuid}}
-    address: ${SERVICE_ADDRESS:localhost}
-    port: ${SERVICE_PORT:8080}
+    lease-duration: 15s
+    reap-interval: 5s
+    cache-initialization-timeout: 5s
